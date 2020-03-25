@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_risk" model="ir.ui.view">
+        <field name="name">res_partner_view_risk</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page name="financial_risk" string="Riesgo financiero" attrs="{'invisible': ['|', ('customer','=',False),('parent_id','!=',False)]}">
+                    <label for="credit_limit" string="Limite de credito"/>
+                    <field name="credit_limit" widget="monetary" />
+                    <div attrs="{'invisible': [('credit_limit','=',0)]}">
+                        <label for="max_credit_limit_allow" string="Maximo limite de credito permitido"/>
+                        <field name="max_credit_limit_allow" widget="monetary" />
+                    </div>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_view_order_form_partner_financial_risk" model="ir.ui.view">
+        <field name="name">sale_view_order_form_partner_financial_risk</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="need_check_credit_limit" invisible="1" />            
+                <label for="max_credit_limit_allow" string="Credito Maximo" attrs="{'invisible': [('need_check_credit_limit','=',False)]}"/>
+                <div attrs="{'invisible': [('need_check_credit_limit','=',False)]}">
+                    <field name="max_credit_limit_allow" widget="monetary" attrs="{'invisible': [('need_check_credit_limit','=',False)]}" help="Maximo limite de credito permitido: Riesgo cliente - Facturas abiertas con riesgo - Ventas confirmadas sin facturar con riesgo)" />
+                </div>                
+            </field>            
+        </field>
+    </record>
+</odoo>

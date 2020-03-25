@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="account_payment_mode_ids_need_check_credit_limit" model="ir.config_parameter">
+            <field name="key">account_payment_mode_ids_need_check_credit_limit</field>
+            <field name="value">1,2</field>
+        </record>
+        <record id="account_payment_mode_ids_sepa_credit" model="ir.config_parameter">
+            <field name="key">account_payment_mode_ids_sepa_credit</field>
+            <field name="value">1,2</field>
+        </record>                                                            
+    </data>
+</openerp>
