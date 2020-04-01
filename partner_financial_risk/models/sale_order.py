@@ -32,9 +32,15 @@ class SaleOrder(models.Model):
         if self.payment_mode_id.id>0:
             #account_payment_mode_ids_need_check_credit_limit
             account_payment_mode_ids_need_check_credit_limit = []
-            items_split = self.env['ir.config_parameter'].sudo().get_param('account_payment_mode_ids_need_check_credit_limit').split(",")
-            for item_split in items_split:
-                account_payment_mode_ids_need_check_credit_limit.append(int(item_split))            
+            account_payment_mode_ids_need_check_credit_limit_config = self.env['ir.config_parameter'].sudo().get_param('account_payment_mode_ids_need_check_credit_limit')
+            if account_payment_mode_ids_need_check_credit_limit_config!=False:
+                if ',' in account_payment_mode_ids_need_check_credit_limit_config:
+                    items_split = account_payment_mode_ids_need_check_credit_limit_config.split(",")
+                    for item_split in items_split:
+                        account_payment_mode_ids_need_check_credit_limit.append(int(item_split))
+                else:
+                    account_payment_mode_ids_need_check_credit_limit.append(int(account_payment_mode_ids_need_check_credit_limit_config))                                    
             #check
-            if self.payment_mode_id.id in account_payment_mode_ids_need_check_credit_limit:                    
-                self.need_check_credit_limit = True
+            if len(account_payment_mode_ids_need_check_credit_limit)>0:
+                if self.payment_mode_id.id in account_payment_mode_ids_need_check_credit_limit:                    
+                    self.need_check_credit_limit = True
