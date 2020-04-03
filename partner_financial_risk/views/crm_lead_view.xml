@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_financial_risk_crm_case_form_view_oppor" model="ir.ui.view">
+        <field name="name">partner_financial_risk_crm_case_form_view_oppor</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+        <field name="priority" eval="20"/>                
+        <field name="arch" type="xml">
+            <field name="phone" position="after">
+                <field name="partner_id_credit_limit"/>                                                
+            </field>                                                            
+        </field>
+    </record>                                                    
+</odoo>
