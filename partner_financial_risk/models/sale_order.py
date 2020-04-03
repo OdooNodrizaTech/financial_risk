@@ -8,6 +8,11 @@ from openerp.exceptions import Warning
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
+    partner_id_credit_limit = fields.Float(
+        compute='_get_partner_id_credit_limit',
+        store=False,
+        string='Credito concedido'
+    )
     need_check_credit_limit = fields.Boolean(
         compute='_get_need_check_credit_limit',
         store=False 
@@ -21,6 +26,11 @@ class SaleOrder(models.Model):
     def change_payment_mode_id(self):
         self._get_need_check_credit_limit()
         self._get_max_credit_limit_allow()        
+    
+    @api.one        
+    def _get_partner_id_credit_limit(self):
+        for sale_order_obj in self:
+            sale_order_obj.partner_id_credit_limit = sale_order_obj.partner_id.credit_limit
     
     @api.one        
     def _get_max_credit_limit_allow(self):
