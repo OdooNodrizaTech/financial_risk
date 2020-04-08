@@ -6,8 +6,10 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'partner_financial_risk', 'account'],
-    'data': [],
+    'depends': ['base', 'partner_financial_risk', 'account', 'oniad_root'],
+    'data': [
+        'data/ir_cron.xml',        
+    ],
     'installable': True,
     'auto_install': False,    
 }

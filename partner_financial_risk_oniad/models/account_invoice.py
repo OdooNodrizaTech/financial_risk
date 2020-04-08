@@ -15,10 +15,18 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         return_object = super(AccountInvoice, self).action_invoice_open()
-        #partner_id credit_limit
-        if self.partner_id.credit_limit>0:
-            self.invoice_with_risk = True
-        else:
-            self.invoice_with_risk = False            
+        #oniad_payment_mode_id_with_credit_limit        
+        oniad_payment_mode_id_with_credit_limit = int(self.env['ir.config_parameter'].sudo().get_param('oniad_payment_mode_id_with_credit_limit'))
+        #operations
+        for obj in self:
+            #Si es giro ventas la marcamos como que la factura tiene riesgo
+            if obj.payment_mode_id.id==oniad_payment_mode_id_with_credit_limit:
+                obj.invoice_with_risk = True
+            '''(Ahora mismo no entiendo el sentido de esto)
+            if obj.partner_id.credit_limit>0:
+                obj.invoice_with_risk = True
+            else:
+                obj.invoice_with_risk = False
+            '''                           
         #return                            
-        return return_object                    
+        return return_object
