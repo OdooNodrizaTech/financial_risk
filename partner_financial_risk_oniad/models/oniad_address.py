@@ -33,6 +33,8 @@ class OniadAddress(models.Model):
 
     @api.one
     def action_credit_limit_send_sns(self):
+        _logger.info('action_credit_limit_send_sns')
+        
         if self.partner_id.credit_limit>0:
             action_response = True            
             #define
@@ -75,6 +77,8 @@ class OniadAddress(models.Model):
                 }                                
             )
             if 'MessageId' not in response:
-                action_response = False        
+                action_response = False
+            else:
+                _logger.info(sns_name)                        
             #return
             return action_response                
