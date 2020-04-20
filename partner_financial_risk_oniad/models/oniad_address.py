@@ -70,7 +70,7 @@ class OniadAddress(models.Model):
                 MessageAttributes={
                     'Headers': {
                         'DataType': 'String',
-                        'StringValue': json.dumps([{'type': 'Oniad\\Domain\\Odoo\\OdooOniadAddressAvailableEvent'},[]])
+                        'StringValue': json.dumps([{'type': 'Oniad\\Domain\\Odoo\\OdooCreditAvailableEvent'},[]])
                     }
                 }                                
             )
