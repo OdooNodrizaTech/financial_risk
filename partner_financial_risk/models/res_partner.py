@@ -23,35 +23,23 @@ class ResPartner(models.Model):
         self.max_credit_limit_allow = self.credit_limit
         
         if self.max_credit_limit_allow>0:
-            #account_payment_mode_ids_need_check_credit_limit
-            account_payment_mode_ids_sepa_credit = []
-            account_payment_mode_ids_sepa_credit_config = self.env['ir.config_parameter'].sudo().get_param('account_payment_mode_ids_sepa_credit')
-            if account_payment_mode_ids_sepa_credit_config!=False:
-                if ',' in account_payment_mode_ids_sepa_credit_config:
-                    items_split = account_payment_mode_ids_sepa_credit_config.split(",")                    
-                    for item_split in items_split:
-                        account_payment_mode_ids_sepa_credit.append(int(item_split))
-                else:
-                    account_payment_mode_ids_sepa_credit.append(int(account_payment_mode_ids_sepa_credit_config))
-            #account_invoice
-            if len(account_payment_mode_ids_sepa_credit)>0:                                            
-                account_invoice_ids = self.env['account.invoice'].search([
-                    ('partner_id', '=', self.id),
-                    ('type', '=', 'out_invoice'),
-                    ('state', '=', 'open'),
-                    ('payment_mode_id', 'in', account_payment_mode_ids_sepa_credit)
-                ])
-                if len(account_invoice_ids)>0:
-                    for account_invoice_id in account_invoice_ids:
-                        self.max_credit_limit_allow = self.max_credit_limit_allow - account_invoice_id.residual
-                        
-                sale_order_ids = self.env['sale.order'].search([
-                    ('partner_id', '=', self.id),
-                    ('amount_total', '>', 0),
-                    ('state', 'in', ('sale', 'done')),
-                    ('payment_mode_id', 'in', account_payment_mode_ids_sepa_credit),
-                    ('invoice_status', '=', 'to invoice'),
-                ])                    
-                if len(sale_order_ids)>0:
-                    for sale_order_id in sale_order_ids:
-                        self.max_credit_limit_allow = self.max_credit_limit_allow - sale_order_id.amount_total    
+            account_invoice_ids = self.env['account.invoice'].search([
+                ('partner_id', '=', self.id),
+                ('type', '=', 'out_invoice'),
+                ('state', '=', 'open'),
+                ('payment_mode_id.use_to_calculate_max_credit_limit_allow', '=', True)
+            ])
+            if len(account_invoice_ids)>0:
+                for account_invoice_id in account_invoice_ids:
+                    self.max_credit_limit_allow = self.max_credit_limit_allow - account_invoice_id.residual
+                    
+            sale_order_ids = self.env['sale.order'].search([
+                ('partner_id', '=', self.id),
+                ('amount_total', '>', 0),
+                ('state', 'in', ('sale', 'done')),
+                ('payment_mode_id.use_to_calculate_max_credit_limit_allow', '=', True),
+                ('invoice_status', '=', 'to invoice'),
+            ])                    
+            if len(sale_order_ids)>0:
+                for sale_order_id in sale_order_ids:
+                    self.max_credit_limit_allow = self.max_credit_limit_allow - sale_order_id.amount_total    
