@@ -54,8 +54,9 @@ class OniadAddress(models.Model):
             message = {
                 'id': int(self.id),
                 'credit_limit': self.partner_id.credit_limit,
+                'max_credit_limit_allow': self.partner_id.max_credit_limit_allow,
                 'cesce_risk_state': str(self.partner_id.cesce_risk_state)
-            }            
+            }
             #enviroment
             enviroment = 'dev'
             web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
