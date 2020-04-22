@@ -40,7 +40,7 @@ class SaleOrder(models.Model):
     def _get_need_check_credit_limit(self):
         self.need_check_credit_limit = False
         if self.payment_mode_id.id>0:
-            if self.payment_mode_id.use_to_calculate_max_credit_limit_allow==True:                    
+            if self.payment_mode_id.payment_method_id.code=='sepa_direct_debit':                    
                 self.need_check_credit_limit = True
                     
     @api.multi
