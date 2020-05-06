@@ -2,8 +2,7 @@
 import logging
 _logger = logging.getLogger(__name__)
 
-from openerp import api, models, fields, tools
-from openerp.exceptions import Warning
+from odoo import api, models, fields, tools
 
 import boto3, json
 from botocore.exceptions import ClientError
@@ -11,8 +10,8 @@ from botocore.exceptions import ClientError
 class OniadAddress(models.Model):
     _inherit = 'oniad.address'    
     
-    @api.multi    
-    def cron_oniad_address_credit_limit_send_sns_custom(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_oniad_address_credit_limit_send_sns_custom(self):
         oniad_address_ids = self.env['oniad.address'].search(
             [
                 ('partner_id', '!=', False),

@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-import account_invoice
-import oniad_address
-import res_partner
+from . import account_invoice
+from . import oniad_address
+from . import res_partner 

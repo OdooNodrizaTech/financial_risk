@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import account_payment_mode
-import crm_lead
-import res_partner
-import sale_order
+from . import account_payment_mode
+from . import crm_lead
+from . import res_partner
+from . import sale_order

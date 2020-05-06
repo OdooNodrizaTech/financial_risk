@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 import logging
 _logger = logging.getLogger(__name__)
