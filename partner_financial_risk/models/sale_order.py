@@ -3,7 +3,7 @@
 import logging
 _logger = logging.getLogger(__name__)
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 from odoo.exceptions import Warning
 
 class SaleOrder(models.Model):
