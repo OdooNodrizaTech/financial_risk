@@ -53,7 +53,7 @@ class SaleOrder(models.Model):
                 future_max_credit_limit_allow = obj.max_credit_limit_allow - obj.amount_total
                 if future_max_credit_limit_allow<=0:
                     allow_confirm = False
-                    raise Warning(_('The sale cannot be confirmed because there is no available credit or the total amount of this sale is greater than the available credit) + (%s)' %  (str(future_max_credit_limit_allow))))
+                    raise Warning(_('The sale cannot be confirmed because there is no available credit or the total amount of this sale is greater than the available credit (%s)' % (str(future_max_credit_limit_allow))))
         #allow_confirm
         if allow_confirm==True:
             return super(SaleOrder, self).action_confirm()                    
