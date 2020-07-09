@@ -12,7 +12,7 @@ class SaleOrder(models.Model):
     partner_id_credit_limit = fields.Float(
         compute='_get_partner_id_credit_limit',
         store=False,
-        string='Credito concedido'
+        string='Credit granted'
     )
     need_check_credit_limit = fields.Boolean(
         compute='_get_need_check_credit_limit',
@@ -53,7 +53,7 @@ class SaleOrder(models.Model):
                 future_max_credit_limit_allow = obj.max_credit_limit_allow - obj.amount_total
                 if future_max_credit_limit_allow<=0:
                     allow_confirm = False
-                    raise Warning("No se puede confirmar la venta porque no hay credito disponible o el importe total de esta venta es superior al credito disponible ("+str(future_max_credit_limit_allow)+")")        
+                    raise Warning(_("The sale cannot be confirmed because there is no available credit or the total amount of this sale is greater than the available credit")+" ("+str(future_max_credit_limit_allow)+")")
         #allow_confirm
         if allow_confirm==True:
             return super(SaleOrder, self).action_confirm()                    

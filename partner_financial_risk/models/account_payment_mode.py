@@ -11,6 +11,6 @@ class AccountPaymentMode(models.Model):
     
     use_to_calculate_max_credit_limit_allow = fields.Boolean(
         string='Use to Max credit',
-        help='Si esta activo se usara este modo de pago para las facturas que lo tengan a la hora de calcular el riesgo vivo del cliente',
+        help="If it is active, this payment method will be used for the invoices they have when calculating the customer's living risk",
         default=True
     )

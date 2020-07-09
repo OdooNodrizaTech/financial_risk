@@ -9,7 +9,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     credit_limit = fields.Monetary(
-        string='Limite de credito',
+        string='Credit Limit',
         track_visibility='onchange' 
     )
     max_credit_limit_allow = fields.Monetary(

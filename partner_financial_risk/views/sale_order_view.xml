@@ -8,9 +8,9 @@
         <field name="arch" type="xml">
             <field name="partner_shipping_id" position="after">
                 <field name="need_check_credit_limit" invisible="1" />            
-                <label for="max_credit_limit_allow" string="Credito Maximo" attrs="{'invisible': [('need_check_credit_limit','=',False)]}"/>
+                <label for="max_credit_limit_allow" string="Max credit" attrs="{'invisible': [('need_check_credit_limit','=',False)]}"/>
                 <div attrs="{'invisible': [('need_check_credit_limit','=',False)]}">
-                    <field name="max_credit_limit_allow" widget="monetary" attrs="{'invisible': [('need_check_credit_limit','=',False)]}" help="Maximo limite de credito permitido: Riesgo cliente - Facturas abiertas con riesgo - Ventas confirmadas sin facturar con riesgo)" />
+                    <field name="max_credit_limit_allow" widget="monetary" attrs="{'invisible': [('need_check_credit_limit','=',False)]}" help="Maximum credit limit allowed: Customer risk - Open invoices with risk - Confirmed sales without invoicing with risk)" />
                 </div>                
             </field>            
         </field>

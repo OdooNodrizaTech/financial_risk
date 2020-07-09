@@ -11,7 +11,7 @@ class CrmLead(models.Model):
     partner_id_credit_limit = fields.Float(
         compute='_get_partner_id_credit_limit',
         store=False,
-        string='Credito concedido'
+        string='Credit granted'
     )
          
     @api.one        
