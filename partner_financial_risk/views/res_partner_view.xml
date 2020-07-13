@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="res_partner_view_risk" model="ir.ui.view">
         <field name="name">res_partner_view_risk</field>
         <field name="model">res.partner</field>
@@ -18,4 +19,5 @@
             </page>
         </field>
     </record>
+
 </odoo>

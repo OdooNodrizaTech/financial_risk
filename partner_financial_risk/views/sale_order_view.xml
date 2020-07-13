@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="sale_view_order_form_partner_financial_risk" model="ir.ui.view">
         <field name="name">sale_view_order_form_partner_financial_risk</field>
         <field name="model">sale.order</field>
@@ -15,4 +16,5 @@
             </field>            
         </field>
     </record>
+
 </odoo>
