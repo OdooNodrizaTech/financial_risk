@@ -5,7 +5,7 @@ from odoo import api, models, fields
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
-    
+
     partner_id_credit_limit = fields.Float(
         compute='_compute_partner_id_credit_limit',
         store=False,
