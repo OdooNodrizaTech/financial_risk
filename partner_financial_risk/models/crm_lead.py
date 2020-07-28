@@ -7,12 +7,14 @@ class CrmLead(models.Model):
     _inherit = 'crm.lead'
     
     partner_id_credit_limit = fields.Float(
-        compute='_get_partner_id_credit_limit',
+        compute='_compute_partner_id_credit_limit',
         store=False,
         string='Credit granted'
     )
-         
-    @api.one        
-    def _get_partner_id_credit_limit(self):
-        for crm_lead_obj in self:
-            crm_lead_obj.partner_id_credit_limit = crm_lead_obj.partner_id.credit_limit                                                            
+
+    @api.multi
+    @api.depends('partner_id')
+    def _compute_partner_id_credit_limit(self):
+        self.ensure_one()
+        if self.partner_id:
+            self.partner_id_credit_limit = self.partner_id.credit_limit
