@@ -29,26 +29,26 @@ class SaleOrder(models.Model):
     @api.multi
     @api.depends('partner_id')
     def _compute_partner_id_credit_limit(self):
-        self.ensure_one()
-        if self.partner_id:
-            self.partner_id_credit_limit = self.partner_id.credit_limit
+        for item in self:
+            if item.partner_id:
+                item.partner_id_credit_limit = item.partner_id.credit_limit
 
     @api.multi
     @api.depends('partner_id')
     def _compute_need_check_credit_limit(self):
-        self.ensure_one()
-        if self.partner_id:
-            self.max_credit_limit_allow = self.partner_id.max_credit_limit_allow
+        for item in self:
+            if item.partner_id:
+                item.max_credit_limit_allow = item.partner_id.max_credit_limit_allow
 
     @api.multi
     @api.depends('payment_mode_id')
     def _compute_max_credit_limit_allow(self):
-        self.ensure_one()
-        self.need_check_credit_limit = False
-        if self.payment_mode_id:
-            if self.payment_mode_id.payment_method_id.code \
-                    == 'sepa_direct_debit':
-                self.need_check_credit_limit = True
+        for item in self:
+            item.need_check_credit_limit = False
+            if item.payment_mode_id:
+                if item.payment_mode_id.payment_method_id.code \
+                        == 'sepa_direct_debit':
+                    item.need_check_credit_limit = True
 
     @api.multi
     def action_confirm(self):

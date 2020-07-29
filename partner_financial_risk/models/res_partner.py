@@ -17,37 +17,37 @@ class ResPartner(models.Model):
 
     @api.multi
     def _compute_max_credit_limit_allow(self):
-        self.ensure_one()
-        self.max_credit_limit_allow = self.credit_limit
-        if self.max_credit_limit_allow > 0:
-            # account_invoices
-            items = self.env['account.invoice'].search([
-                ('partner_id', '=', self.id),
-                ('type', '=', 'out_invoice'),
-                ('state', '=', 'open'),
-                (
-                    'payment_mode_id.use_to_calculate_max_credit_limit_allow',
-                    '=',
-                    True
-                )
-            ])
-            if items:
-                for item in items:
-                    self.max_credit_limit_allow = \
-                        self.max_credit_limit_allow - item.residual
-            # sale_orders
-            items = self.env['sale.order'].search([
-                ('partner_id', '=', self.id),
-                ('amount_total', '>', 0),
-                ('state', 'in', ('sale', 'done')),
-                (
-                    'payment_mode_id.use_to_calculate_max_credit_limit_allow',
-                    '=',
-                    True)
-                ,
-                ('invoice_status', '=', 'to invoice'),
-            ])
-            if items:
-                for item in items:
-                    self.max_credit_limit_allow = \
-                        self.max_credit_limit_allow - item.amount_total
+        for item in self:
+            item.max_credit_limit_allow = item.credit_limit
+            if item.max_credit_limit_allow > 0:
+                # account_invoices
+                invoice_ids = self.env['account.invoice'].search([
+                    ('partner_id', '=', item.id),
+                    ('type', '=', 'out_invoice'),
+                    ('state', '=', 'open'),
+                    (
+                        'payment_mode_id.use_to_calculate_max_credit_limit_allow',
+                        '=',
+                        True
+                    )
+                ])
+                if invoice_ids:
+                    for invoice_id in invoice_ids:
+                        item.max_credit_limit_allow = \
+                            item.max_credit_limit_allow - invoice_id.residual
+                # sale_orders
+                order_ids = self.env['sale.order'].search([
+                    ('partner_id', '=', item.id),
+                    ('amount_total', '>', 0),
+                    ('state', 'in', ('sale', 'done')),
+                    (
+                        'payment_mode_id.use_to_calculate_max_credit_limit_allow',
+                        '=',
+                        True)
+                    ,
+                    ('invoice_status', '=', 'to invoice'),
+                ])
+                if order_ids:
+                    for order_id in order_ids:
+                        item.max_credit_limit_allow = \
+                            item.max_credit_limit_allow - order_id.amount_total
