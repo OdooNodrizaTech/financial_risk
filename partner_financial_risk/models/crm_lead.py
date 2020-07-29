@@ -15,6 +15,6 @@ class CrmLead(models.Model):
     @api.multi
     @api.depends('partner_id')
     def _compute_partner_id_credit_limit(self):
-        self.ensure_one()
-        if self.partner_id:
-            self.partner_id_credit_limit = self.partner_id.credit_limit
+        for item in self:
+            if item.partner_id:
+                item.partner_id_credit_limit = item.partner_id.credit_limit
