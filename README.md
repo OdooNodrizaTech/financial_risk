@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/OdooNodrizaTech/financial_risk.svg?branch=12.0)](https://travis-ci.org/OdooNodrizaTech/financial_risk)
+[![Coverage Status](https://coveralls.io/repos/github/OdooNodrizaTech/financial_risk/badge.svg?branch=12.0)](https://coveralls.io/github/OdooNodrizaTech/financial_risk?branch=12.0)
 
 financial_risk
 =========
