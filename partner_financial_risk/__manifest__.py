@@ -13,7 +13,7 @@
         "account",
         "sale",
         "crm",
-        "account_payment_sale"  # https://github.com/OCA/bank-payment
+        "account_payment_mode"  # https://github.com/OCA/bank-payment
     ],
     "data": [
         "views/account_payment_mode_view.xml",
