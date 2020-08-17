@@ -5,7 +5,6 @@ from odoo import models, fields
 
 class AccountPaymentMode(models.Model):
     _inherit = 'account.payment.mode'
-    _order = 'position'
 
     use_to_calculate_max_credit_limit_allow = fields.Boolean(
         string='Use to Max credit',
